@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Animated } from 'react-native';
 
 import Joystick from './components/Joystick';
 import styles from './styles';

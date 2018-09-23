@@ -13,7 +13,7 @@ class Joystick extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Pad />
+        <Pad onMove={this.props.onMove} />
         <Buttons />
       </View>
     );

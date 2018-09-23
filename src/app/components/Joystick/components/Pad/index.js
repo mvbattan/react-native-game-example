@@ -6,7 +6,7 @@ import styles from './styles';
 const Props = {};
 
 class Pad extends Component<Props> {
-  state = { fingerPosition: new Animated.ValueXY(0, 0), boxPosition: new Animated.ValueXY(0, 0) };
+  state = { fingerPosition: new Animated.ValueXY(0, 0) };
 
   animationFrame = null;
 
@@ -14,7 +14,7 @@ class Pad extends Component<Props> {
     onStartShouldSetPanResponder: () => true,
     onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: (e, gE) => {
-      const { fingerPosition, boxPosition } = this.state;
+      const { fingerPosition } = this.state;
       const mockEvt = { dx: Math.min(Math.max(gE.dx, -50), 50), dy: Math.min(Math.max(gE.dy, -50), 50) };
       this.runAnimatedFrame();
       Animated.event(
@@ -49,9 +49,8 @@ class Pad extends Component<Props> {
   runAnimatedFrame = () => {
     if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
     this.animationFrame = requestAnimationFrame(() => {
-      const { boxPosition, fingerPosition } = this.state;
-      boxPosition.x.setValue(boxPosition.x._value + fingerPosition.x._value / 15);
-      boxPosition.y.setValue(boxPosition.y._value + fingerPosition.y._value / 15);
+      const { fingerPosition } = this.state;
+      this.props.onMove(fingerPosition);
       this.runAnimatedFrame();
     });
   };
@@ -64,16 +63,6 @@ class Pad extends Component<Props> {
         <Animated.View
           {...this.panResponder.panHandlers}
           style={[styles.finger, { transform: fingerPosition.getTranslateTransform() }]}
-        />
-        <Animated.View
-          style={{
-            backgroundColor: 'black',
-            width: 20,
-            height: 20,
-            position: 'absolute',
-            top: 0,
-            transform: this.state.boxPosition.getTranslateTransform()
-          }}
         />
       </View>
     );

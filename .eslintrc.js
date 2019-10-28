@@ -1,3 +1,4 @@
 module.exports = {
-    "extends": "wolox"
+  root: true,
+  extends: '@react-native-community',
 };

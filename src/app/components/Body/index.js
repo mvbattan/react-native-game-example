@@ -20,7 +20,7 @@ class Body extends Component<Props> {
           width: 20,
           height: 20,
           position: 'absolute',
-          top: 0,
+          top: '50%',
           transform: boxPosition.getTranslateTransform()
         }}
       />
